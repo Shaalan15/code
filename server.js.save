@@ -1,0 +1,89 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const fs = require('fs')
+const http =  require('http')
+const port = 8000
+const url = require('url');
+const mongoose = require('mongoose');
+
+
+// Creating the products schema
+const ProductsSchema = mongoose.Schema(
+    {
+        // Name is required 
+        title: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true
+        },
+        // Price is required 
+       : {
+            type: Number,
+            required: true
+        }
+    }
+);
+
+// Creating a model of the schema. Takes the collection name and the schema
+const ProductsModel = new mongoose.model('products', ProductsSchema);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var multer = require('multer');
+var path = require('path')
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname) //Appending extension
+  }
+})
+
+var upload = multer({ storage: storage });
+
+app.get('/', (req,res) => {
+    res.json({
+        success: true
+    })
+})
+app.get('/getFileNames', function (req, res) {
+
+  const directoryPath = path.join(__dirname, 'Uploads');
+  fs.readdir(directoryPath, function (err, files) {
+  if (err) {
+  return console.log('Unable to scan directory: ' + err);
+  }
+  res.send(JSON.stringify(files)) ;
+  /*for(var x in files){
+    const details = fs.statSync(directoryPath + '/' + files[x]);
+    fileObj[files[x]] = details
+    }
+    res.send(JSON.stringify(fileObj))*/
+  res.end();
+  });
+  ;
+  })
+
+
+app.post('/', (req, res) => {
+    console.log(req.body)
+    res.status(200)
+  })
+
+app.post('/upload', upload.single('document'),(req , res) => {
+  console.log(req.file, req.body)
+});
+/*app.post('/uploadimg',upload.single('image'),(req,res) => {
+  console.log(req.file, req.body)
+});*/
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})

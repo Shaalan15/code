@@ -1,0 +1,21 @@
+Example app listening at http://localhost:8000
+{
+  fieldname: 'document',
+  originalname: 'Singer. Famine, Affluence and Morality.pdf',
+  encoding: '7bit',
+  mimetype: 'application/pdf',
+  destination: 'uploads/',
+  filename: 'Singer. Famine, Affluence and Morality.pdf',
+  path: 'uploads/Singer. Famine, Affluence and Morality.pdf',
+  size: 1886508
+} [Object: null prototype] {}
+{
+  fieldname: 'document',
+  originalname: 'GSE1J11A90NTYY01WH.pdf',
+  encoding: '7bit',
+  mimetype: 'application/pdf',
+  destination: 'uploads/',
+  filename: 'GSE1J11A90NTYY01WH.pdf',
+  path: 'uploads/GSE1J11A90NTYY01WH.pdf',
+  size: 285090
+} [Object: null prototype] {}
